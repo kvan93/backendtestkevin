@@ -1,6 +1,11 @@
 /*jslint es6 */
+/*global console, require,process*/
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 const port = process.env.PORT || 80;
 
 const {Pool, Client} = require('pg');
@@ -16,19 +21,21 @@ const pool = new Pool({
     }
 });
 
-app.get('/', function (req, res) {
+app.get('/pokedex', function (res) {
     "use strict";
-    res.send('Hello World!');
-});
-app.get('/test', function (req, res) {
-    "use strict";
-    res.send('Test');
-});
-app.get('/list', function (req, res) {
-    "use strict";
-    pool.query('SELECT * FROM lijst', function (err, res2) {
+    pool.query('SELECT * FROM pokedex', function (err, res2) {
         console.log(res2);
         res.send(JSON.stringify(res2.rows));
+    });
+});
+
+app.post('/pokedex/new', function (req, res) {
+    "use strict";
+    console.log(req.body.naam);
+    let query = `insert into pokedex(naam,types,zwaktes) values ('${req.body.naam}', '${req.body.types}', '${req.body.zwaktes}')`;
+    pool.query(query, function (error, results, fields) {
+        if (error) throw error;
+        res.end("Nieuwe pokemon erbij!");
     });
 });
 
