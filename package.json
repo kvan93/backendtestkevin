@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
-
   },
   "repository": {
     "type": "git",
@@ -17,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kvan93/backendtestkevin/issues"
   },
-  "homepage": "https://github.com/kvan93/backendtestkevin#readme"
+  "homepage": "https://github.com/kvan93/backendtestkevin#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
