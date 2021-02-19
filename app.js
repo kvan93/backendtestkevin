@@ -1,11 +1,11 @@
 /*jslint es6 */
 /*global console, require,process*/
+"use strict";
 const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors());
 app.use(function(req, res, next) {
-    "use strict";
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET", "PUT", "POST", "DELETE", "OPTIONS");
@@ -28,8 +28,7 @@ const pool = new Pool({
     }
 });
 
-app.get('/pokedex', function (res) {
-    "use strict";
+app.get('/pokedex', function (req, res) {    
     pool.query('SELECT * FROM pokedex', function (err, res2) {
         console.log(res2);
         res.send(JSON.stringify(res2.rows));
@@ -37,7 +36,6 @@ app.get('/pokedex', function (res) {
 });
 
 app.post('/pokedex/new', function (req, res) {
-    "use strict";
     console.log(req.body.naam);
     let query = `insert into pokedex(naam,types,zwaktes) values ('${req.body.naam}', '${req.body.types}', '${req.body.zwaktes}')`;
     pool.query(query, function (error, results) {
@@ -49,14 +47,12 @@ app.post('/pokedex/new', function (req, res) {
 });
 
 app.delete('/pokedex/delete/:id', function (req,res){
-    "use strict";
     let query = `delete from pokedex where id = ${req.params.id}`;
-    pool.query(query, function(err, res2) {
+    pool.query(query, function (err, res2) {
         res.send(JSON.stringify("Deleted pokemon!"))
     });
 });
 
 app.listen(port, function () {
-    "use strict";
     console.log(`App Server luistert op poort ${port}`);
 });
