@@ -48,7 +48,7 @@ app.post('/pokedex/new', function (req, res) {
 
 app.delete('/pokedex/delete/:id', function (req,res){
     "use strict";
-    let query = `delete from pokedex where id =${req.params.id}`;
+    let query = `delete from pokedex where id = ${req.params.id}`;
     pool.query(query, function(err, res2) {
         res2.send(JSON.stringify("Deleted pokemon!"))
     })
