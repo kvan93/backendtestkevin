@@ -39,9 +39,9 @@ app.post('/pokedex/new', function (req, res) {
     "use strict";
     console.log(req.body.naam);
     let query = `insert into pokedex(naam,types,zwaktes) values ('${req.body.naam}', '${req.body.types}', '${req.body.zwaktes}')`;
-    pool.query(query, function (error, results, fields) {
+    pool.query(query, function (error, results) {
         if (error) throw error;
-        res.end("Nieuwe pokemon erbij!");
+        results.end("Nieuwe pokemon erbij!");
     });
 });
 
