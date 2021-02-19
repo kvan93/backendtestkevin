@@ -35,6 +35,12 @@ app.get('/pokedex', function (req, res) {
     });
 });
 
+app.get('/pokedex/detail/:id', function (req,res) {
+    pool.query(`Select naam,types,zwaktes from pokedex where id=${req.params.id}`, function (err, resquery) {
+        res.send(JSON.stringify(resquery.rows));
+    })
+})
+
 app.post('/pokedex/new', function (req, res) {
     console.log(req.body.naam);
     let query = `insert into pokedex(naam,types,zwaktes) values ('${req.body.naam}', '${req.body.types}', '${req.body.zwaktes}')`;
