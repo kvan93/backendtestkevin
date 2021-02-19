@@ -41,8 +41,10 @@ app.post('/pokedex/new', function (req, res) {
     console.log(req.body.naam);
     let query = `insert into pokedex(naam,types,zwaktes) values ('${req.body.naam}', '${req.body.types}', '${req.body.zwaktes}')`;
     pool.query(query, function (error, results) {
-        if (error) throw error;
-        results.send(JSON.stringify("Nieuwe pokemon erbij!"));
+        if (error) {
+            throw error;
+        }
+        res.send(JSON.stringify("Nieuwe pokemon erbij!"));
     });
 });
 
@@ -50,9 +52,9 @@ app.delete('/pokedex/delete/:id', function (req,res){
     "use strict";
     let query = `delete from pokedex where id = ${req.params.id}`;
     pool.query(query, function(err, res2) {
-        res2.send(JSON.stringify("Deleted pokemon!"))
-    })
-})
+        res.send(JSON.stringify("Deleted pokemon!"))
+    });
+});
 
 app.listen(port, function () {
     "use strict";
